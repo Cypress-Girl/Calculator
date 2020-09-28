@@ -25,10 +25,28 @@ function ButtonEmptyComp() {
     )
 }
 
-function DisplayComp(props) {
-    return (
-        <textarea id={props.id} rows="1" value={props.value} readOnly/>
-    )
+function DisplayHistoryComp(props) {
+    if (props.finalResult) {
+        return (
+            <textarea id={props.id} rows="1" value={props.value} style={{color: "gray"}} readOnly/>
+        )
+    } else {
+        return (
+            <textarea id={props.id} rows="1" value={props.value} readOnly/>
+        )
+    }
+}
+
+function DisplayResultComp(props) {
+    if (props.finalResult) {
+        return (
+            <textarea id={props.id} rows="1" value={props.value} style={{color: "blue", fontSize: "25px"}} readOnly/>
+        )
+    } else {
+        return (
+            <textarea id={props.id} rows="1" value={props.value} readOnly/>
+        )
+    }
 }
 
 const SIGN = 0;
@@ -47,6 +65,7 @@ class App extends React.Component {
         this.state = {
             displayText: "",
             result: 0,
+            isFinalResult: false,
         }
     }
 
@@ -99,6 +118,7 @@ class App extends React.Component {
 
     clickDigit = (inputSymbol) => {
         this.needReset();    //делаем reset, если нужно
+        this.setFinalResult(false);
         lastSymbol = DIGIT;
 
         inputNumber += inputSymbol;
@@ -120,6 +140,7 @@ class App extends React.Component {
 
     clickOperation = (operation) => {
         this.needReset();    //делаем reset, если нужно
+        this.setFinalResult(false);
 
         //проверка на второй знак операции подряд
         if (lastSymbol === SIGN) {
@@ -148,18 +169,26 @@ class App extends React.Component {
 
         this.setState({displayText: inputNumber})
         this.setState({result: 0})
+        this.setFinalResult(false);
+    }
+
+    setFinalResult = (isFinal) => {
+        this.setState({
+            isFinalResult: isFinal
+        });
     }
 
     fResult = () => {
         lastSymbol = NEED_RESET;
+        this.setFinalResult(true);
     }
 
     render() {
         return (
             <div id="main-container">
                 <section id="display-container">
-                    <DisplayComp id="display" value={this.state.displayText}/><br/>
-                    <DisplayComp id="result" value={this.state.result}/><br/>
+                    <DisplayHistoryComp id="display" value={this.state.displayText} finalResult={this.state.isFinalResult}/><br/>
+                    <DisplayResultComp id="result" value={this.state.result} finalResult={this.state.isFinalResult}/>
                 </section>
                 <section id="button-container">
                     <ButtonComp value="C" onClick={this.fReset}/>
