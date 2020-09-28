@@ -26,27 +26,31 @@ function ButtonEmptyComp() {
 }
 
 function DisplayHistoryComp(props) {
+    let textElement1;
     if (props.finalResult) {
-        return (
-            <textarea id={props.id} rows="1" value={props.value} style={{color: "gray"}} readOnly/>
-        )
+        textElement1 = <textarea id={props.id} rows="1" value={props.value} style={{color: "gray"}} readOnly/>;
     } else {
-        return (
-            <textarea id={props.id} rows="1" value={props.value} readOnly/>
-        )
+        textElement1 = <textarea id={props.id} rows="1" value={props.value} readOnly/>;
     }
+    return (
+        <div>
+            {textElement1}
+        </div>
+    )
 }
 
 function DisplayResultComp(props) {
+    let textElement1;
     if (props.finalResult) {
-        return (
-            <textarea id={props.id} rows="1" value={props.value} style={{color: "blue", fontSize: "25px"}} readOnly/>
-        )
+        textElement1 = <textarea id={props.id} rows="1" value={props.value} style={{color: "blue", fontSize: "25px"}} readOnly/>
     } else {
-        return (
-            <textarea id={props.id} rows="1" value={props.value} readOnly/>
-        )
+        textElement1 = <textarea id={props.id} rows="1" value={props.value} readOnly/>;
     }
+    return (
+            <div>
+                {textElement1}
+            </div>
+        )
 }
 
 const SIGN = 0;

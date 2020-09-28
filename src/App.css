@@ -29,6 +29,7 @@ textarea {
     font-weight: bold;
     font-size: 20px;
     cursor: default;
+    width: 100%;
 }
 
 #button-container {
